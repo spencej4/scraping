@@ -1,10 +1,6 @@
 let express = require("express");
 let logger = require("morgan");
 let mongoose = require("mongoose");
-
-// Our scraping tools
-// Axios is a promised-based http library, similar to jQuery's Ajax method
-// It works on the client and on the server
 let axios = require("axios");
 let cheerio = require("cheerio");
 
@@ -16,7 +12,7 @@ let PORT = 3000;
 // Initialize Express
 let app = express();
 
-// Configure middleware
+// ======Configure middleware
 
 // Use morgan logger for logging requests
 app.use(logger("dev"));
@@ -32,8 +28,7 @@ app.use(express.static("public"));
 let MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 mongoose.connect(MONGODB_URI);
 
-
-// Routes
+// ======Routes
 
 // A GET route for scraping the echoJS website
 app.get("/api/scrape", function(req, res) {
@@ -85,6 +80,7 @@ app.get("/api/articles", function(req, res) {
       res.json(err);
     });
 });
+
 
 // Route for grabbing a specific Article by id, populate it with it's note
 app.get("/articles/:id", function(req, res) {
@@ -143,6 +139,7 @@ app.get("/api/clear", function(req, res) {
       res.json(err);
     });
 });
+
 
 // Start the server
 app.listen(PORT, function() {
